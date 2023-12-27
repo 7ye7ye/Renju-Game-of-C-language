@@ -1,0 +1,35 @@
+# Project: Renju
+# Makefile created by Dev-C++ 6.7.5
+
+CPP      = g++.exe -D__DEBUG__
+CC       = gcc.exe -D__DEBUG__
+WINDRES  = windres.exe
+OBJ      = menu.o main.o game.o
+LINKOBJ  = menu.o main.o game.o
+LIBS     = -L"d:/download/dev-cpp/mingw32/lib/gcc/mingw32/9.2.0/" -L"d:/download/dev-cpp/mingw32/lib/gcc/" -L"d:/download/dev-cpp/mingw32/mingw32/lib/" -L"d:/download/dev-cpp/mingw32/lib/" -L"D:/download/Dev-Cpp/MinGW32/lib" -L"D:/download/Dev-Cpp/MinGW32/mingw32/lib" -g3 -static
+INCS     = -I"d:/download/dev-cpp/mingw32/lib/gcc/mingw32/9.2.0/include" -I"d:/download/dev-cpp/mingw32/include" -I"d:/download/dev-cpp/mingw32/lib/gcc/mingw32/9.2.0/include-fixed"
+CXXINCS  = -I"d:/download/dev-cpp/mingw32/lib/gcc/mingw32/9.2.0/include/c++" -I"d:/download/dev-cpp/mingw32/lib/gcc/mingw32/9.2.0/include/c++/mingw32" -I"d:/download/dev-cpp/mingw32/lib/gcc/mingw32/9.2.0/include/c++/backward" -I"d:/download/dev-cpp/mingw32/lib/gcc/mingw32/9.2.0/include" -I"d:/download/dev-cpp/mingw32/include" -I"d:/download/dev-cpp/mingw32/lib/gcc/mingw32/9.2.0/include-fixed"
+BIN      = Renju.exe
+CXXFLAGS = $(CXXINCS) -Wall -Wextra -g3
+ENCODINGS = -finput-charset=utf-8 -fexec-charset=gbk
+CFLAGS   = $(INCS) -Wall -Wextra -g3
+RM       = del /q /f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o "$(BIN)" $(LIBS)
+
+menu.o: menu.c game_service.h global.h menu.h model.h
+	$(CC) -c menu.c -o menu.o $(CFLAGS) 
+
+main.o: main.c game_service.h global.h menu.h model.h rank_file.h rank_service.h
+	$(CC) -c main.c -o main.o $(CFLAGS) 
+
+game.o: game.c game_service.h global.h model.h
+	$(CC) -c game.c -o game.o $(CFLAGS) 
